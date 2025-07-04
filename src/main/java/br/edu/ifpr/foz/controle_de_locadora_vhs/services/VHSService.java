@@ -1,6 +1,7 @@
 package br.edu.ifpr.foz.controle_de_locadora_vhs.services;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -17,4 +18,9 @@ public class VHSService {
     public List<VHS> findAll(){
         return vhsRepository.findAll();
     }
+
+    public Optional<VHS> findById(Long id){
+        return vhsRepository.findById(id);
+    }
+
 }
