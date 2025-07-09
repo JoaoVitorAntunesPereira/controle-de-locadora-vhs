@@ -11,7 +11,6 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.dao.DataIntegrityViolationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.test.annotation.Rollback;
 
 import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.Genre;
@@ -102,15 +101,6 @@ class ControleDeLocadoraVhsApplicationTests {
 		assertThrows(DataIntegrityViolationException.class, () -> {
 			userRepository.save(user);
 		});
-	}
-
-	@Test
-	void deveEfetuarLogin(){
-
-		String email = "admin@gmail.com";
-
-		String password = "admin";
-
 	}
 
 

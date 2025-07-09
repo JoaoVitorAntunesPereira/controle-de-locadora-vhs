@@ -23,4 +23,8 @@ public class VHSService {
         return vhsRepository.findById(id);
     }
 
+    public VHS save(VHS vhs) {
+        return vhsRepository.save(vhs);
+    }
+
 }

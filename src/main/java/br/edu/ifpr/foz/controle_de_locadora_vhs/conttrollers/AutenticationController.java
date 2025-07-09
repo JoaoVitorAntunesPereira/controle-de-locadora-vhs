@@ -30,11 +30,11 @@ public class AutenticationController {
 
             session.setAttribute("loggedUser", user);
 
-            return "redirect:/home";
+            return "redirect:/vhs";
 
         } catch (Exception e) {
             model.addFlashAttribute("message", e.getMessage());
-
+            
             return "redirect:/login";
         }
     }
