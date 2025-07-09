@@ -77,6 +77,8 @@ public class VHSController {
         if(fields.hasErrors()){
             model.addAttribute("vhs", vhs);
             model.addAttribute("statusList", Status.values());
+
+            model.addAttribute("fields", fields);
             model.addAttribute("genres", genreService.findAll());
             return "vhs-form";
         }else{
