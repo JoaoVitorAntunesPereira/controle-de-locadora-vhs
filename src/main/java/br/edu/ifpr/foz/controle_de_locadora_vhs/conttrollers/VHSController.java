@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
@@ -72,7 +73,7 @@ public class VHSController {
     }
 
     @PostMapping("/add")
-    public String add(@Valid VHS vhs, BindingResult fields, Model model){
+    public String add(@Valid @ModelAttribute("vhs") VHS vhs, BindingResult fields, Model model){
         
         if(fields.hasErrors()){
             model.addAttribute("vhs", vhs);
@@ -86,8 +87,16 @@ public class VHSController {
 
             return "redirect:/vhs";
         }
+    }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id){
+
+        vhsService.delete(id);
+
+        return "redirect:/vhs";
 
     }
+
 
 }

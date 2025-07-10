@@ -13,24 +13,12 @@
         <h2 class="mb-4">Cadastrar/Editar VHS</h2>
         <form th:action="@{/vhs/add}" th:object="${vhs}" method="post" class="border p-4 rounded shadow-sm">
 
-            <div th:if="${1 == 1}" >
-                asdasfasd
-                <p th:text="${fields}"></p>
-                <ul>
-                    <li th:each="erro : ${#fields.errors}">
-                        <span th:text="${erro}"></span>
-                    </li>
-                </ul>
-            </div>
-
             <input type="hidden" th:field="*{id}" />
 
             <div class="mb-3">
                 <label for="title" class="form-label">Título</label>
                 <input type="text" id="title" th:field="*{title}" class="form-control" />
-                <div th:if="${#fields.hasErrors('title')}">
-                    <span th:errors="*{title}"></span>
-                </div>
+                <div class="text-danger" th:errors="*{title}"></div>
             </div>
 
 
@@ -45,6 +33,7 @@
                 <select id="genre" th:field="*{genre}" class="form-select" >
                     <option th:each="g : ${genres}" th:value="${g.id}" th:text="${g.description}"></option>
                 </select>
+                <div class="text-danger" th:errors="*{genre}"></div>
             </div>
 
             <div class="mb-3">
@@ -57,6 +46,7 @@
                 <select id="status" th:field="*{status}" class="form-select" >
                     <option th:each="s : ${statusList}" th:value="${s}" th:text="${s}"></option>
                 </select>
+                <div class="text-danger" th:errors="*{status}"></div>
             </div>
 
             <button type="submit" class="btn btn-primary">Salvar</button>

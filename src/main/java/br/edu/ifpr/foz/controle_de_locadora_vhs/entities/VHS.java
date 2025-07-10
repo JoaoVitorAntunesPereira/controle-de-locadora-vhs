@@ -36,9 +36,9 @@ public class VHS {
 
     @ManyToOne
     @ToString.Exclude
+    @NotNull(message = "Informe um gênero")
     private Genre genre;
 
-    @NotNull(message = "Informe uma data")
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)
     private LocalDate registrationDate;
 
