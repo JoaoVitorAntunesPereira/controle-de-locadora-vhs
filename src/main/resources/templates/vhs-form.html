@@ -11,7 +11,7 @@
 
     <div class="container mt-5">
         <h2 class="mb-4">Cadastrar/Editar VHS</h2>
-        <form th:action="@{/vhs/add}" th:object="${vhs}" method="post" class="border p-4 rounded shadow-sm">
+        <form th:action="@{${linkToPost}}" th:object="${vhs}" method="post" class="border p-4 rounded shadow-sm">
 
             <input type="hidden" th:field="*{id}" />
 

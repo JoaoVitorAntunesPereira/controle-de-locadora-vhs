@@ -42,6 +42,9 @@
                         <a th:href="@{/vhs/view/{id}(id=${vhs.id})}" class="btn btn-outline-primary btn-sm" title="Visualizar">
                             <i class="bi bi-eye"></i>
                         </a>
+                        <a th:href="@{/vhs/edit/{id}(id=${vhs.id})}" class="btn btn-outline-warning btn-sm" title="Editar">
+                            <i class="bi bi-pen"></i>
+                        </a>
                         <a th:href="@{/vhs/delete/{id}(id=${vhs.id})}" class="btn btn-outline-danger btn-sm" title="Excluir" onclick="return confirm('Tem certeza que deseja excluir este item?');">
                             <i class="bi bi-trash"></i>
                         </a>

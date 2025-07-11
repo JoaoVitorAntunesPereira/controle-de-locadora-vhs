@@ -22,6 +22,8 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 
 @Controller
@@ -68,6 +70,7 @@ public class VHSController {
         model.addAttribute("vhs", vhs);
         model.addAttribute("statusList", Status.values());
         model.addAttribute("genres", genreService.findAll());
+        model.addAttribute("linkToPost", "/vhs/add");
 
         return "vhs-form";
     }
@@ -98,5 +101,40 @@ public class VHSController {
 
     }
 
+    @GetMapping("/edit/{id}")
+    public String editForm(@PathVariable Long id, Model model){
+
+        Optional<VHS> vhsOptional = vhsService.findById(id);
+
+        if(vhsOptional.isPresent()){
+            VHS vhs = vhsOptional.get();
+
+            model.addAttribute("vhs", vhs);
+            model.addAttribute("statusList", Status.values());
+            model.addAttribute("genres", genreService.findAll());
+            model.addAttribute("linkToPost", "/vhs/edit");
+
+            return "vhs-form";
+        }
+
+        return "redirect:/vhs";
+    }
+
+    @PostMapping("/edit")
+    public String edit(@Valid @ModelAttribute("vhs") VHS vhs, BindingResult fields, Model model){
+
+        if(fields.hasErrors()){
+            model.addAttribute("vhs", vhs);
+            model.addAttribute("statusList", Status.values());
+
+            model.addAttribute("fields", fields);
+            model.addAttribute("genres", genreService.findAll());
+            return "vhs-form";
+        }else{
+            vhsService.save(vhs);
+
+            return "redirect:/vhs";
+        }
+    }
 
 }
