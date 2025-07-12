@@ -56,7 +56,7 @@
 <body class="bg-light">
 
     <div th:replace="~{/fragments/header :: header}"></div>
-    
+
     <div class="container py-5">
         <h1 class="mb-4 text-center">Catálogo de VHS</h1>
 
@@ -71,7 +71,7 @@
 
                         <div class="vhs-info text-start mt-2">
                             <p><strong>Diretor:</strong> <span th:text="${vhs.director}"></span></p>
-                            <p><strong>Gênero:</strong> <span th:text="${vhs.genre.description}"></span></p>
+                            <p><strong>Gênero:</strong> <span th:text="${vhs.genre != null ? vhs.genre.description : 'Sem categoria'}"></span></p>
                             <p><strong>Data:</strong> <span th:text="${#temporals.format(vhs.registrationDate, 'dd/MM/yyyy')}"></span></p>
                             <p><strong>Status:</strong> <span th:text="${vhs.status}"></span></p>
                         </div>

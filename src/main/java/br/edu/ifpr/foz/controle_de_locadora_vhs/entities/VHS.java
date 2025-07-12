@@ -2,6 +2,8 @@ package br.edu.ifpr.foz.controle_de_locadora_vhs.entities;
 
 import java.time.LocalDate;
 
+import org.hibernate.annotations.Cascade;
+import org.hibernate.annotations.CascadeType;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -11,6 +13,7 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -34,8 +37,8 @@ public class VHS {
     private String director;
 
     @ManyToOne
+    @JoinColumn(name = "genre_id", nullable = true)
     @ToString.Exclude
-    @NotNull(message = "Informe um gênero")
     private Genre genre;
 
     @DateTimeFormat(iso = DateTimeFormat.ISO.DATE)

@@ -35,7 +35,7 @@
                     <td th:text="${vhs.id}"></td>
                     <td th:text="${vhs.title}"></td>
                     <td th:text="${vhs.director}"></td>
-                    <td th:text="${vhs.genre.description}"></td>
+                    <td th:text="${vhs.genre != null ? vhs.genre.description : 'Sem categoria'}"></td>
                     <td th:text="${#temporals.format(vhs.registrationDate, 'dd/MM/yyyy')}"></td>
                     <td th:text="${vhs.status}"></td>
                     <td>

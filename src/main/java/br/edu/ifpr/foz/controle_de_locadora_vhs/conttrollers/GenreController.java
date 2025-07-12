@@ -61,6 +61,14 @@ public class GenreController {
 
     }
 
+    @GetMapping("/delete/{id}")
+    public String delete(@PathVariable Long id, Model model){
+
+        genreService.delete(id);
+
+        return "redirect:/genre";
+    }
+
     @PostMapping("/save")
     public String save(@Valid @ModelAttribute("genre") Genre genre, BindingResult fields, Model model){
 

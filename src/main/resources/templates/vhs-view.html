@@ -23,13 +23,12 @@
                     <img th:src="@{'/uploads/' + ${vhs.image}}" class="img-thumbnail mb-3" style="max-width: 100%;" />
                 </div>
 
-                <!-- Dados à direita -->
                 <div class="col-md-8">
                     <ul class="list-group list-group-flush">
                         <li class="list-group-item"><strong>ID:</strong> <span th:text="${vhs.id}"></span></li>
                         <li class="list-group-item"><strong>Título:</strong> <span th:text="${vhs.title}"></span></li>
                         <li class="list-group-item"><strong>Diretor:</strong> <span th:text="${vhs.director}"></span></li>
-                        <li class="list-group-item"><strong>Categoria:</strong> <span th:text="${vhs.genre.description}"></span></li>
+                        <li class="list-group-item"><strong>Categoria:</strong> <span th:text="${vhs.genre != null ? vhs.genre.description : 'Sem categoria'}"></span></li>
                         <li class="list-group-item"><strong>Data de Cadastro:</strong> <span th:text="${#temporals.format(vhs.registrationDate, 'dd/MM/yyyy')}"></span></li>
                         <li class="list-group-item"><strong>Status:</strong> <span th:text="${vhs.status}"></span></li>
                     </ul>

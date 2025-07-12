@@ -10,7 +10,7 @@ import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.Genre;
 
 public interface GenreRepository extends JpaRepository<Genre, Long>{
     
-    @Query(value = "SELECT g.*, COUNT(*) count FROM genre g JOIN vhs v ON g.id = v.genre_id GROUP BY g.id", nativeQuery = true)
+    @Query(value = "SELECT g.*, COUNT(v.id) count FROM genre g LEFT JOIN vhs v ON g.id = v.genre_id GROUP BY g.id", nativeQuery = true)
     public List<GenreWithVHSCount> findAllWithVhsCount();
 
 }
