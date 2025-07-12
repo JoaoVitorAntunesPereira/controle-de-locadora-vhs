@@ -11,7 +11,7 @@
 
     <div class="container mt-5">
         <h2 class="mb-4">Cadastrar/Editar VHS</h2>
-        <form th:action="@{${linkToPost}}" th:object="${vhs}" method="post" class="border p-4 rounded shadow-sm">
+        <form th:action="@{/vhs/save}" th:object="${vhs}" method="post" class="border p-4 rounded shadow-sm" enctype="multipart/form-data">
 
             <input type="hidden" th:field="*{id}" />
 
@@ -49,6 +49,10 @@
                 <div class="text-danger" th:errors="*{status}"></div>
             </div>
 
+            <div class="mb-3">
+                <label for="coverImage" class="form-label">Capa do VHS</label>
+                <input type="file" id="coverImage" name="coverImage" accept="image/*" class="form-control" />
+            </div>
             <button type="submit" class="btn btn-primary">Salvar</button>
         </form>
     </div>

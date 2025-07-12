@@ -3,6 +3,7 @@ package br.edu.ifpr.foz.controle_de_locadora_vhs.entities;
 import java.time.LocalDate;
 
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.web.multipart.MultipartFile;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,9 +13,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.ManyToOne;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
 import lombok.Data;
 import lombok.ToString;
 
@@ -29,7 +28,7 @@ public class VHS {
     @NotBlank(message = "Título deve ter ao menos um caracter")
     private String title;
 
-    //private String imageUrl;
+    private String image;
     
     @NotBlank(message = "Diretor deve ter ao menos um caracter")
     private String director;

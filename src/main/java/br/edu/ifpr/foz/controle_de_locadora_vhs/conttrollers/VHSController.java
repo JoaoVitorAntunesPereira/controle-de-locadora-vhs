@@ -1,5 +1,11 @@
 package br.edu.ifpr.foz.controle_de_locadora_vhs.conttrollers;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.Optional;
 
@@ -13,6 +19,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.User;
 import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.VHS;
@@ -22,7 +30,6 @@ import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 
 
@@ -64,7 +71,7 @@ public class VHSController {
     }
 
     @GetMapping("/add")
-    public String addForm(Model model){
+    public String add(Model model){
 
         VHS vhs = new VHS();
         model.addAttribute("vhs", vhs);
@@ -75,9 +82,11 @@ public class VHSController {
         return "vhs-form";
     }
 
-    @PostMapping("/add")
-    public String add(@Valid @ModelAttribute("vhs") VHS vhs, BindingResult fields, Model model){
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute("vhs") VHS vhs, BindingResult fields, Model model, @RequestParam MultipartFile coverImage) throws IOException{
         
+        String UPLOAD_DIR = new File("src/main/resources/static/uploads/").getAbsolutePath();
+
         if(fields.hasErrors()){
             model.addAttribute("vhs", vhs);
             model.addAttribute("statusList", Status.values());
@@ -86,6 +95,17 @@ public class VHSController {
             model.addAttribute("genres", genreService.findAll());
             return "vhs-form";
         }else{
+
+            if(coverImage != null && !coverImage.isEmpty()){
+                String fileName = coverImage.getOriginalFilename();
+
+                Path path = Paths.get(UPLOAD_DIR, fileName);
+
+                Files.createDirectories(path.getParent());
+                Files.copy(coverImage.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
+                vhs.setImage(fileName);
+            }
+
             vhsService.save(vhs);
 
             return "redirect:/vhs";
@@ -102,7 +122,7 @@ public class VHSController {
     }
 
     @GetMapping("/edit/{id}")
-    public String editForm(@PathVariable Long id, Model model){
+    public String edit(@PathVariable Long id, Model model){
 
         Optional<VHS> vhsOptional = vhsService.findById(id);
 
@@ -118,23 +138,6 @@ public class VHSController {
         }
 
         return "redirect:/vhs";
-    }
-
-    @PostMapping("/edit")
-    public String edit(@Valid @ModelAttribute("vhs") VHS vhs, BindingResult fields, Model model){
-
-        if(fields.hasErrors()){
-            model.addAttribute("vhs", vhs);
-            model.addAttribute("statusList", Status.values());
-
-            model.addAttribute("fields", fields);
-            model.addAttribute("genres", genreService.findAll());
-            return "vhs-form";
-        }else{
-            vhsService.save(vhs);
-
-            return "redirect:/vhs";
-        }
     }
 
 }

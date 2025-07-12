@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.Genre;
-import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.VHS;
 import br.edu.ifpr.foz.controle_de_locadora_vhs.services.GenreService;
 import jakarta.validation.Valid;
 
