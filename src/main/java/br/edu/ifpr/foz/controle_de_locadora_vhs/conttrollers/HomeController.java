@@ -24,7 +24,7 @@ public class HomeController {
         List<VHS> vhsList = vhsService.findAll();
         model.addAttribute("vhsList", vhsList);
 
-        return "vhs-list-2";
+        return "home";
     }
 
 }

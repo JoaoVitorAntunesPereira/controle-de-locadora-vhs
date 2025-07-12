@@ -14,7 +14,7 @@
     <div class="container mt-5">
         <h2 class="mb-4">Cadastrar/Editar Gênero</h2>
 
-        <form th:action="@{/genre/add}" th:object="${genre}" method="post" class="border p-4 rounded shadow-sm">
+        <form th:action="@{/genre/save}" th:object="${genre}" method="post" class="border p-4 rounded shadow-sm">
 
             <input type="hidden" th:field="*{id}" />
 

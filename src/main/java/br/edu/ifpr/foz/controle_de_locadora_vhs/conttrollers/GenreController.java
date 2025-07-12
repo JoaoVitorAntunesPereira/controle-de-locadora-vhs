@@ -1,6 +1,7 @@
 package br.edu.ifpr.foz.controle_de_locadora_vhs.conttrollers;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -8,9 +9,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import br.edu.ifpr.foz.controle_de_locadora_vhs.dto.GenreWithVHSCount;
 import br.edu.ifpr.foz.controle_de_locadora_vhs.entities.Genre;
 import br.edu.ifpr.foz.controle_de_locadora_vhs.services.GenreService;
 import jakarta.validation.Valid;
@@ -25,7 +28,7 @@ public class GenreController {
     @GetMapping
     public String genreList(Model model){
 
-        List<Genre> genreList = genreService.findAll();
+        List<GenreWithVHSCount> genreList = genreService.findAllWithVhsCount();
 
         model.addAttribute("genreList", genreList);
 
@@ -33,7 +36,7 @@ public class GenreController {
     }
 
     @GetMapping("/add")
-    public String addForm(Model model){
+    public String add(Model model){
 
         Genre genre = new Genre();
 
@@ -42,9 +45,24 @@ public class GenreController {
         return "genre-form";
     }
 
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable Long id, Model model){
 
-    @PostMapping("/add")
-    public String add(@Valid @ModelAttribute("genre") Genre genre, BindingResult fields, Model model){
+        Optional<Genre> genre = genreService.findById(id);
+
+        if(genre.isPresent()){
+            model.addAttribute("genre", genre.get());
+
+            return "genre-form";
+        }
+
+        return "redirect:/genre";
+
+
+    }
+
+    @PostMapping("/save")
+    public String save(@Valid @ModelAttribute("genre") Genre genre, BindingResult fields, Model model){
 
         if(fields.hasErrors()){
 
@@ -58,6 +76,7 @@ public class GenreController {
 
         return "redirect:/genre";
     }
+
 
 
 }

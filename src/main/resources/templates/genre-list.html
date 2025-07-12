@@ -24,6 +24,7 @@
                 <tr>
                     <th>ID</th>
                     <th>Descrição</th>
+                    <th>VHS com esse gênero</th>
                     <th>Ações</th>
                 </tr>
             </thead>
@@ -31,10 +32,9 @@
                 <tr th:each="genre : ${genreList}">
                     <td th:text="${genre.id}"></td>
                     <td th:text="${genre.description}"></td>
+                    <td th:text="${genre.count}"></td>
+                    <td th:text="teste"></td>
                     <td>
-                        <a th:href="@{/genres/view/{id}(id=${genre.id})}" class="btn btn-outline-primary btn-sm" title="Visualizar">
-                            <i class="bi bi-eye"></i>
-                        </a>
                         <a th:href="@{/genre/edit/{id}(id=${genre.id})}" class="btn btn-outline-warning btn-sm" title="Editar">
                             <i class="bi bi-pencil"></i>
                         </a>
