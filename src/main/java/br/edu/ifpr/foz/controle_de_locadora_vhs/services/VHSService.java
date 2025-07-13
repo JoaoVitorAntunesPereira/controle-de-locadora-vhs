@@ -1,5 +1,9 @@
 package br.edu.ifpr.foz.controle_de_locadora_vhs.services;
 
+import java.io.File;
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
@@ -33,7 +37,7 @@ public class VHSService {
         return vhsRepository.save(vhs);
     }
 
-    public boolean delete(Long id) {
+    public boolean delete(Long id) throws IOException{
 
         Optional<VHS> vhsOptional = vhsRepository.findById(id);
 
@@ -41,6 +45,10 @@ public class VHSService {
             VHS vhs = vhsOptional.get();
 
             vhsRepository.delete(vhs);
+
+            String UPLOAD_DIR = new File("src/main/resources/static/uploads/").getAbsolutePath();
+            String fileName = vhs.getImage();
+            Files.delete(Path.of(UPLOAD_DIR,fileName));
 
             return true;
         }

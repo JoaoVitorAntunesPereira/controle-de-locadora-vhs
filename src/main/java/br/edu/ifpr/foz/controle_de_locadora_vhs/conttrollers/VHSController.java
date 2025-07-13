@@ -115,7 +115,10 @@ public class VHSController {
     @GetMapping("/delete/{id}")
     public String delete(@PathVariable Long id){
 
-        vhsService.delete(id);
+        try {
+            vhsService.delete(id);
+        } catch (IOException e) {
+        }
 
         return "redirect:/vhs";
 
